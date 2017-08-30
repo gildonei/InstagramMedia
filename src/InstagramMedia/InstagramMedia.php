@@ -1,6 +1,8 @@
 <?php
 namespace InstagramMedia;
 
+use Exception;
+
 /**
  * Classe simples para obter as postagens para um determinado perfil público no
  * instagram e retornar os dados básicos da postagem
@@ -116,10 +118,27 @@ class InstagramMedia
      */
     private function getJsonMedia()
     {
+        $header = [
+            'Accept-Language: en-US;q=0.6,en;q=0.4',
+            'Connection: keep-alive',
+            'Content-Length: 0',
+            'Host: www.instagram.com',
+            'Origin: https://www.instagram.com',
+            'Referer: https://www.instagram.com/',
+            'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36',
+            'X-Instagram-AJAX: 1',
+            'X-Requested-With: XMLHttpRequest'
+        ];
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, self::URL . $this->getUserId() . '/media');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_URL, self::URL . $this->getUserId() . '/media/');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_ENCODING, '');
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_HEADER, false);
         $result = curl_exec($ch);
         curl_close($ch);
         return $result;
