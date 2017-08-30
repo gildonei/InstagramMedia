@@ -82,7 +82,8 @@ class InstagramMedia
      *         'low' => URL da imagem em baixa resolução
      *         'std' => URL da imagem em resolução padrão
      *         'qtd_likes' => Quantidade de likes
-     *         'qtd_comments' => Quantidade de comentários
+     *         'qtd_comments' => Quantidade de comentários,
+     *         'caption' => Texto do post
      *     ]
      */
     public function getMedia($qtd = 20)
@@ -102,6 +103,7 @@ class InstagramMedia
                 'std' => $post->images->standard_resolution->url,
                 'qtd_likes' => $post->likes->count,
                 'qtd_comments' => $post->comments->count,
+                'caption' => $post->caption->text
             ];
             $i++;
             if ($i >= $qtd) {
@@ -118,19 +120,7 @@ class InstagramMedia
      */
     private function getJsonMedia()
     {
-        $header = [
-            'Accept-Language: en-US;q=0.6,en;q=0.4',
-            'Connection: keep-alive',
-            'Content-Length: 0',
-            'Host: www.instagram.com',
-            'Origin: https://www.instagram.com',
-            'Referer: https://www.instagram.com/',
-            'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36',
-            'X-Instagram-AJAX: 1',
-            'X-Requested-With: XMLHttpRequest'
-        ];
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_URL, self::URL . $this->getUserId() . '/media/');
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
