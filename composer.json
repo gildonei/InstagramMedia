@@ -1,0 +1,20 @@
+{
+    "name": "gildonei/instagrammedia",
+    "type": "library",
+    "description": "A simple library to get posts from instagram public profiles",
+    "keywords": ["php", "instagram", "instagrammedia"],
+    "homepage": "https://github.com/gildonei/instagrammedia",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gildonei Mendes Anacleto Junior",
+            "email": "gildonei.mendes@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-0": {"InstagramMedia\\": "src/"}
+    }
+}
