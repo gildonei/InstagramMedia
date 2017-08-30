@@ -31,7 +31,9 @@ class InstagramMedia
      */
     public function __construct($userId = '')
     {
-        $this->setUserId($userId);
+        if (!empty($userId)) {
+            $this->setUserId($userId);
+        }
     }
 
     /**
