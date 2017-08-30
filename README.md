@@ -27,7 +27,7 @@ Retorna um array com os dados
 ```
 ### Composer
 
-Adicione `{ "gildonei/instagrammedia": ">=1.0" }` no require do seu projeto.
+Adicione `{ "gildonei/instagrammedia": "dev-master" }` no require do seu projeto.
 
 ### License
 
