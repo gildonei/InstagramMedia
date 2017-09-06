@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false"
          verbose="true"
-         bootstrap="../../Vendor/autoload.php">
+         bootstrap="autoload.php">
     <testsuites>
         <testsuite name="InstagramMedia Test Suite">
             <directory>./InstagramMedia/</directory>
@@ -20,7 +20,7 @@
 
     <filter>
         <blacklist>
-            <directory suffix=".php">../../Vendor</directory>
+            <directory suffix=".php">Vendor</directory>
         </blacklist>
     </filter>
 </phpunit>
