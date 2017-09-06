@@ -8,4 +8,3 @@ install: true
 branches:
   only:
   - master
-script: build.sh
