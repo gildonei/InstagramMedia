@@ -1,4 +1,4 @@
-# InstagramMedia
+# InstagramMedia [![Build Status](https://api.travis-ci.org/gildonei/instagrammedia.png)](https://travis-ci.org/gildonei/instagrammedia)
 Retorna os posts de um perfil público do instagram
 
 ### Versão PHP
@@ -10,7 +10,7 @@ Retorna os posts de um perfil público do instagram
 $userId = 'perfil-do-instagram';
 $objInstagram = new InstagramMedia($userId);
 $data = $objInstagram->getMedia(10);
-/* 
+/*
 Retorna um array com os dados
 [0] => [
        'link' => URL do Post
