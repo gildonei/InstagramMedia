@@ -5,7 +5,7 @@ php:
   - '7.1'
 sudo: false
 install: true
-script: phpunit --configuration tests/phpunit.xml
+script: php -v
 branches:
   only:
   - master
