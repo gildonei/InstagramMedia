@@ -1,5 +1,9 @@
-# InstagramMedia [![Build Status](https://api.travis-ci.org/gildonei/instagrammedia.png)](https://travis-ci.org/gildonei/instagrammedia)
+# InstagramMedia 
+
+[![Build Status](https://api.travis-ci.org/gildonei/instagrammedia.png)](https://travis-ci.org/gildonei/instagrammedia)
 [![Latest Stable Version](https://poser.pugx.org/gildonei/instagrammedia/v/stable.svg)](https://packagist.org/packages/gildonei/instagrammedia)
+
+
 Retorna os posts de um perfil público do instagram
 
 ### Versão PHP
