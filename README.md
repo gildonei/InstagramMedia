@@ -1,10 +1,10 @@
-# InstagramMedia 
+# InstagramMedia
 
 [![Build Status](https://api.travis-ci.org/gildonei/instagrammedia.png)](https://travis-ci.org/gildonei/instagrammedia)
 [![Latest Stable Version](https://poser.pugx.org/gildonei/instagrammedia/v/stable.svg)](https://packagist.org/packages/gildonei/instagrammedia)
 
-
-Retorna os posts de um perfil público do instagram
+Permite ao usuário obter as imagens do Instagram após o registro da App dentro
+do instagram. - https://www.instagram.com/developer/
 
 ### Versão PHP
 5.6+
@@ -12,9 +12,12 @@ Retorna os posts de um perfil público do instagram
 ### Exemplo de uso
 ```
 <?php
-$userId = 'perfil-do-instagram';
-$objInstagram = new InstagramMedia($userId);
-$data = $objInstagram->getMedia(10);
+// Pode ser obtido em: https://smashballoon.com/instagram-feed/find-instagram-user-id/
+$userId = 'self';
+// Tutorial de como obter o access token - https://blog.difluir.com/2016/06/como-criar-um-aplicativo-e-pegar-o-access-token-no-instagram/
+$accessToken = 'xxxxxxxxxx.xxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+$objInstagram = new InstagramMedia\InstagramMedia($userId, $accessToken);
+$data = $objInstagram->getMedia(10); // Máximo de 20
 /*
 Retorna um array com os dados
 [0] => [
