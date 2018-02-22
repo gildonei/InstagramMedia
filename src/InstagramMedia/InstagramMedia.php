@@ -18,7 +18,7 @@ class InstagramMedia
      * @access public
      * @var string
      */
-    const URL = 'https://www.instagram.com/';
+    const URL = 'https://api.instagram.com/v1/users/';
 
     /**
      * Nome da conta de usuário para obter as mídias
@@ -28,13 +28,25 @@ class InstagramMedia
     private $userId = '';
 
     /**
+     * Access Token para acesso à API do Instagram
+     * @access private
+     * @var string
+     */
+    private $accessToken = '';
+
+    /**
      * Construtor da classe
      * @param string $userId
+     * @param string $accessToken
+     * @return \InstagramMedia
      */
-    public function __construct($userId = '')
+    public function __construct($userId = '', $accessToken = '')
     {
         if (!empty($userId)) {
             $this->setUserId($userId);
+        }
+        if (!empty($userId)) {
+            $this->setAccessToken($accessToken);
         }
     }
 
@@ -50,6 +62,7 @@ class InstagramMedia
             throw new Exception(__('ID do usuário não informado!'));
         }
         $this->userId = $userId;
+
         return $this;
     }
 
@@ -65,6 +78,37 @@ class InstagramMedia
             throw new Exception('Usuário não informado');
         } else {
             return $this->userId;
+        }
+    }
+
+    /**
+     * @access public
+     * @param string $accessToken
+     * @return \InstagramMedia
+     * @throws Exception
+     */
+    public function setAccessToken($accessToken = '')
+    {
+        if (empty($accessToken)) {
+            throw new Exception(__('Access Token não informado!'));
+        }
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
+    /**
+     * Retorna o nome de usuário o qual se quer obter os posts
+     * @access public
+     * @return string
+     * @throws Exception
+     */
+    public function getAccessToken()
+    {
+        if (empty($this->accessToken)) {
+            throw new Exception('Access Token não informado');
+        } else {
+            return $this->accessToken;
         }
     }
 
@@ -89,12 +133,12 @@ class InstagramMedia
     public function getMedia($qtd = 20)
     {
         $data = json_decode($this->getJsonMedia());
-        if (!isset($data->items)) {
+        if (!isset($data->data)) {
             return [];
         }
         $retorno = [];
         $i = 0;
-        foreach ($data->items as $post) {
+        foreach ($data->data as $post) {
             $retorno[] = [
                 'link' => $post->link,
                 'type' => $post->type,
@@ -103,7 +147,7 @@ class InstagramMedia
                 'std' => $post->images->standard_resolution->url,
                 'qtd_likes' => $post->likes->count,
                 'qtd_comments' => $post->comments->count,
-                'caption' => $post->caption->text
+                'caption' => (isset($post->caption->text)) ? $post->caption->text : ''
             ];
             $i++;
             if ($i >= $qtd) {
@@ -121,7 +165,7 @@ class InstagramMedia
     private function getJsonMedia()
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, self::URL . $this->getUserId() . '/media/');
+        curl_setopt($ch, CURLOPT_URL, self::URL . $this->getUserId() . '/media/recent/?access_token=' . $this->getAccessToken());
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
